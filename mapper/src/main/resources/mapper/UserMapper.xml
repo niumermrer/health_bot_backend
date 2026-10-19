@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chatbot.mapper.UserMapper">
+    <update id="updateUserById">
+        UPDATE USERS SET
+        <if test="phone != null"> PHONE=#{phone},</if>
+        <if test="username != null">USERNAME=#{username},</if>
+        <if test="status != null">STATUS=#{status},</if>
+        <if test="avatar != null">AVATAR=#{avatar},</if>
+        <if test="email != null">EMAIL=#{email},</if>
+        <if test="gender != null">GENDER=#{gender},</if>
+        <if test="age != null">AGE=#{age},</if>
+        <if test="description != null">DESCRIPTION=#{description},</if>
+        <if test="contract != null">CONTRACT=#{contract},</if>
+        <if test="birthDate != null">BIRTHDATE=#{birthDate},</if>
+        SQ1=#{SQ1},SQ2=#{SQ2},SQ3=#{SQ3},AS1=#{AS1},AS2=#{AS2},AS3=#{AS3}, UPDATETIME=#{updateTime}  WHERE USERID=#{userid}
+    </update>
+    <update id="updateAvatarByPhone">
+        UPDATE USERS SET AVATAR=#{avatar} WHERE PHONE=#{phone}
+    </update>
+    <update id="updateChatMessageById">
+        UPDATE USERS SET CHATMESSAGE=#{chatMessage} WHERE USERID=#{userid}
+    </update>
+    <select id="login" resultType="com.chatbot.pojo.User">
+        select * from USERS where PHONE = #{phone} and PASSWORD = #{password}
+    </select>
+    <select id="selectByUsername" resultType="com.chatbot.pojo.User">
+        select * from USERS where USERNAME = #{username}
+    </select>
+    <select id="selectByPhone" resultType="com.chatbot.pojo.User">
+        select  USERID,PHONE,USERNAME,STATUS,AVATAR,EMAIL,GENDER,AGE,DESCRIPTION,CONTRACT,BIRTHDATE, SQ1,SQ2,SQ3,AS1,AS2,AS3,CREATETIME,UPDATETIME
+        from USERS where PHONE = #{phone}
+    </select>
+    <select id="selectByPhoneAndName" resultType="com.chatbot.pojo.User">
+        select
+        USERID,PHONE,USERNAME,STATUS,AVATAR,EMAIL,SQ1,SQ2,SQ3,CREATETIME,UPDATETIME
+        from USERS where PHONE = #{phone} and USERNAME = #{username}
+    </select>
+    <select id="selectByPhoneAndNameR" resultType="com.chatbot.pojo.User">
+        select * from USERS where PHONE = #{phone} and USERNAME = #{username}
+    </select>
+    <select id="selectByPhoneR" resultType="com.chatbot.pojo.User">
+        select * from USERS where PHONE = #{phone}
+    </select>
+    <select id="selectChatMessageByUserId" resultType="com.alibaba.fastjson2.JSONObject">
+        select CHATMESSAGE from USERS where USERID = #{userId}
+    </select>
+</mapper>
